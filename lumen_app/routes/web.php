@@ -15,6 +15,13 @@ $router->get('/', function () use ($router) {
   return 'hello world';
 });
 
-$router->get('/transactions', 'DataController@getAll');
+// $router->get('/transactions', 'DataController@getAll');
+//
+// $router->get('customer/{id}', 'DataController@getByCustomerId');
 
-$router->get('customer/{id}', 'DataController@getByCustomerId');
+$router->group(['prefix' => 'transaction'], function () use ($router) {
+  $router->get('customer',  ['uses' =>'DataController@getAll']);
+
+  $router->get('customer/{id}', ['uses' => 'DataController@getByCustomerId']);
+
+});
